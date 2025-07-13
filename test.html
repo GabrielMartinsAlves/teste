@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Botão Comprar</title>
+  <title>Sistema de Login</title>
   <style>
     body {
       margin: 0;
@@ -12,61 +12,222 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      background-color: #1a1a1c;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #dbeafe;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #dbeafe;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #333;
+      border-radius: 6px;
+      background-color: #2a2a2c;
+      color: #dbeafe;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #5c3bee;
+      box-shadow: 0 0 0 2px rgba(92, 59, 238, 0.2);
     }
 
     button {
       background-color: #5c3bee;
       color: #dbeafe;
       border: none;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      width: 100%;
+      margin-bottom: 1rem;
     }
 
     button:hover {
       background-color: #4830ba;
     }
+
+    .link {
+      color: #5c3bee;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .message {
+      padding: 0.75rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .message.success {
+      background-color: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    .message.error {
+      background-color: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
   </style>
 </head>
 <body>
-  <button>comprar</button>
+  <div class="container">
+    <!-- Login Page -->
+    <div id="login-page" class="page active">
+      <h1>Login</h1>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input type="password" id="password" required>
+        </div>
+        <button type="submit">Entrar</button>
+      </form>
+      <a href="#" class="link" onclick="showPage('forgot-password')">Esqueci minha senha</a>
+    </div>
+
+    <!-- Password Recovery Page -->
+    <div id="forgot-password-page" class="page">
+      <h1>Recuperar Senha</h1>
+      <p style="color: #dbeafe; text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem;">
+        Digite seu email para receber as instruções de recuperação de senha.
+      </p>
+      <form id="forgot-password-form">
+        <div class="form-group">
+          <label for="recovery-email">Email:</label>
+          <input type="email" id="recovery-email" required>
+        </div>
+        <button type="submit">Enviar Instruções</button>
+      </form>
+      <a href="#" class="link" onclick="showPage('login')">Voltar ao Login</a>
+    </div>
+
+    <!-- Success Page -->
+    <div id="success-page" class="page">
+      <h1>Email Enviado!</h1>
+      <div class="message success">
+        Instruções de recuperação de senha foram enviadas para seu email. 
+        Verifique sua caixa de entrada e siga as instruções.
+      </div>
+      <a href="#" class="link" onclick="showPage('login')">Voltar ao Login</a>
+    </div>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      // Hide all pages
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+      });
+      
+      // Show the requested page
+      document.getElementById(pageId + '-page').classList.add('active');
+      
+      // Clear any form data
+      document.querySelectorAll('form').forEach(form => {
+        form.reset();
+      });
+    }
+
+    // Handle login form submission
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      if (email && password) {
+        // Simulate login process
+        alert('Login realizado com sucesso!');
+      }
+    });
+
+    // Handle password recovery form submission
+    document.getElementById('forgot-password-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const email = document.getElementById('recovery-email').value;
+      
+      if (email) {
+        // Simulate sending recovery email
+        showPage('success');
+      }
+    });
+
+    // Validate email format
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Add real-time email validation
+    document.getElementById('recovery-email').addEventListener('blur', function() {
+      const email = this.value;
+      if (email && !validateEmail(email)) {
+        this.style.borderColor = '#ef4444';
+      } else {
+        this.style.borderColor = '#333';
+      }
+    });
+
+    document.getElementById('email').addEventListener('blur', function() {
+      const email = this.value;
+      if (email && !validateEmail(email)) {
+        this.style.borderColor = '#ef4444';
+      } else {
+        this.style.borderColor = '#333';
+      }
+    });
+  </script>
 </body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Botão Comprar</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background-color: #0a0a0c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    button {
-      background-color: #5c3bee;
-      color: #dbeafe;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #4830ba;
-    }
-  </style>
-</head>
-<body>
-  <button>comprr<button>
-<body>
 </html>
