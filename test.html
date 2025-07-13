@@ -12,6 +12,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: Arial, sans-serif;
     }
 
     button {
@@ -28,45 +29,27 @@
     button:hover {
       background-color: #4830ba;
     }
+
+    button:active {
+      background-color: #3b2189;
+      transform: translateY(2px);
+    }
   </style>
 </head>
 <body>
-  <button>comprar</button>
+  <button id="comprarBtn">comprar</button>
+
+  <script>
+    document.getElementById('comprarBtn').addEventListener('click', function() {
+      // Simulate a purchase action
+      alert('Processando compra... Redirecionando para a página de pagamento!');
+      
+      // You can replace this with actual functionality like:
+      // window.location.href = '/checkout';
+      // or any other purchase logic
+      
+      console.log('Botão comprar clicado - funcionalidade implementada!');
+    });
+  </script>
 </body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Botão Comprar</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      background-color: #0a0a0c;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    button {
-      background-color: #5c3bee;
-      color: #dbeafe;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    button:hover {
-      background-color: #4830ba;
-    }
-  </style>
-</head>
-<body>
-  <button>comprr<button>
-<body>
 </html>
